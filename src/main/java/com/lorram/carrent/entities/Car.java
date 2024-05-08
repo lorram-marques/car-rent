@@ -44,12 +44,12 @@ public class Car implements Serializable {
 		this.id = id;
 	}
 
-	public Integer getYear() {
+	public Integer getManufactureYear() {
 		return manufactureYear;
 	}
 
-	public void setYear(Integer year) {
-		this.manufactureYear = year;
+	public void setManufactureYear(Integer manufactureYear) {
+		this.manufactureYear = manufactureYear;
 	}
 
 	public String getModel() {
@@ -58,14 +58,6 @@ public class Car implements Serializable {
 
 	public void setModel(String model) {
 		this.model = model;
-	}
-	
-	public Integer getManufactureYear() {
-		return manufactureYear;
-	}
-
-	public void setManufactureYear(Integer manufactureYear) {
-		this.manufactureYear = manufactureYear;
 	}
 
 	public List<RentLog> getRentLogs() {

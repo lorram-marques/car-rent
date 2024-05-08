@@ -8,44 +8,45 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.lorram.carrent.dto.CarDTO;
-import com.lorram.carrent.entities.Car;
-import com.lorram.carrent.repositories.CarRepository;
+import com.lorram.carrent.dto.ClientDTO;
+import com.lorram.carrent.entities.Client;
+import com.lorram.carrent.repositories.ClientRepository;
 import com.lorram.carrent.services.exceptions.DatabaseException;
 import com.lorram.carrent.services.exceptions.ResourceNotFoundException;
 
 @Service
-public class CarService {
+public class ClientService {
+
 	@Autowired
-	private CarRepository repository;
+	private ClientRepository repository;
 	
-	public Page<CarDTO> findAll(Pageable pageable) {
-		Page<Car> list = repository.findAll(pageable);
-		return list.map(x -> new CarDTO(x));
+	public Page<ClientDTO> findAll(Pageable pageable) {
+		Page<Client> list = repository.findAll(pageable);
+		return list.map(x -> new ClientDTO(x));
 	}
 	
-	public CarDTO findById(Long id) {
-		Optional<Car> obj = repository.findById(id);
-		Car car = obj.orElseThrow(() -> new ResourceNotFoundException(id));
-		return new CarDTO(car);
+	public ClientDTO findById(Long id) {
+		Optional<Client> obj = repository.findById(id);
+		Client client = obj.orElseThrow(() -> new ResourceNotFoundException(id));
+		return new ClientDTO(client);
 	}
 	
-	public CarDTO update(Long id, CarDTO dto) {
-		Car entity = repository.getReferenceById(id);
+	public ClientDTO update(Long id, ClientDTO dto) {
+		Client entity = repository.getReferenceById(id);
 		fromDto(dto, entity);
 		entity = repository.save(entity);
-		return new CarDTO(entity);
+		return new ClientDTO(entity);
 	}
 
-	public CarDTO insert(CarDTO dto) {
-		Car entity = new Car();
+	public ClientDTO insert(ClientDTO dto) {
+		Client entity = new Client();
 		try {
 		fromDto(dto, entity);
 		entity = repository.save(entity);
 		} catch(DataIntegrityViolationException e) {
 			throw new DatabaseException("Integrity violation"); 
 		}
-		return new CarDTO(entity);
+		return new ClientDTO(entity);
 	}
 	
 	public void delete(Long id) {
@@ -56,8 +57,8 @@ public class CarService {
 			}
 	}
 	
-	private void fromDto(CarDTO carDto, Car entity) {
-		entity.setModel(carDto.getModel());
-		entity.setManufactureYear(carDto.getManufactureYear());
+	private void fromDto(ClientDTO clientDto, Client entity) {
+		entity.setName(clientDto.getName());
+		entity.setEmail(clientDto.getEmail());
 	}
 }

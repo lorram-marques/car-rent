@@ -40,11 +40,11 @@ public class CarDTO implements Serializable {
 		this.id = id;
 	}
 
-	public int getYear() {
+	public int getManufactureYear() {
 		return manufactureYear;
 	}
 
-	public void setYear(Integer manufactureYear) {
+	public void setManufactureYear(Integer manufactureYear) {
 		this.manufactureYear = manufactureYear;
 	}
 
