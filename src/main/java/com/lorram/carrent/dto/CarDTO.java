@@ -28,6 +28,7 @@ public class CarDTO implements Serializable {
 	
 	public CarDTO(Car entity) {
 		id = entity.getId();
+		manufactureYear = entity.getManufactureYear();
 		model = entity.getModel();
 		rentLogs = entity.getRentLogs().stream().map(x -> new RentLogDTO(x)).collect(Collectors.toList());
 	}

@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.lorram.carrent.dto.RentLogDTO;
 import com.lorram.carrent.entities.RentLog;
+import com.lorram.carrent.repositories.CarRepository;
+import com.lorram.carrent.repositories.ClientRepository;
 import com.lorram.carrent.repositories.RentLogRepository;
 import com.lorram.carrent.services.exceptions.DatabaseException;
 import com.lorram.carrent.services.exceptions.ResourceNotFoundException;
@@ -21,6 +23,12 @@ public class RentLogService {
 
 	@Autowired
 	private RentLogRepository repository;
+	
+	@Autowired 
+	private CarRepository carRepository;
+	
+	@Autowired 
+	private ClientRepository clientRepository;
 	
 	public Page<RentLogDTO> findAll(Pageable pageable) {
 		Page<RentLog> list = repository.findAll(pageable);
@@ -62,6 +70,7 @@ public class RentLogService {
 	private void fromDto(RentLogDTO rentLogDto, RentLog entity) {
 		entity.setRentDate(rentLogDto.getRentDate());
 		entity.setReturnDate(rentLogDto.getReturnDate());
-		entity.setCar(repository.getReferenceById(rentLogDto.getId()).getCar());
+		entity.setCar(carRepository.getReferenceById(rentLogDto.getCarId()));
+		entity.setClient(clientRepository.getReferenceById(rentLogDto.getCarId()));
 	}
 }
