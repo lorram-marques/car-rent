@@ -6,34 +6,34 @@ import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-
 @Entity
-@Table(name = "tb_car")
-public class Car implements Serializable {
+@Table(name = "tb_client")
+public class Client implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private Integer manufactureYear;
-	private String model;
+	private String name;
+	private String email;
 	
-	@OneToMany(mappedBy = "car")
-	List<RentLog> rentLogs = new ArrayList<>();
+	@OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+	List<RentLog> rentedCars = new ArrayList<>();
 	
-	public Car() {
+	public Client() {
 	}
 
-	public Car(Long id, Integer manufactureYear, String model) {
+	public Client(Long id, String name, String email) {
 		this.id = id;
-		this.manufactureYear = manufactureYear;
-		this.model = model;
+		this.name = name;
+		this.email = email;
 	}
 
 	public Long getId() {
@@ -44,22 +44,22 @@ public class Car implements Serializable {
 		this.id = id;
 	}
 
-	public Integer getYear() {
-		return manufactureYear;
+	public String getName() {
+		return name;
 	}
 
-	public void setYear(Integer year) {
-		this.manufactureYear = year;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getModel() {
-		return model;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setModel(String model) {
-		this.model = model;
+	public void setEmail(String email) {
+		this.email = email;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -73,7 +73,7 @@ public class Car implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Car other = (Car) obj;
+		Client other = (Client) obj;
 		return Objects.equals(id, other.id);
 	}
 }
