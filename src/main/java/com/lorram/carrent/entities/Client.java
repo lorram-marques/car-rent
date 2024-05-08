@@ -59,6 +59,10 @@ public class Client implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public List<RentLog> getRentedCars() {
+		return rentedCars;
+	}
 
 	@Override
 	public int hashCode() {

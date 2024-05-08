@@ -60,6 +60,18 @@ public class Car implements Serializable {
 		this.model = model;
 	}
 	
+	public Integer getManufactureYear() {
+		return manufactureYear;
+	}
+
+	public void setManufactureYear(Integer manufactureYear) {
+		this.manufactureYear = manufactureYear;
+	}
+
+	public List<RentLog> getRentLogs() {
+		return rentLogs;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
